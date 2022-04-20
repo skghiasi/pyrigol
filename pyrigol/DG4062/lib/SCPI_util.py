@@ -42,7 +42,7 @@ class RigolCmdObj:
         """
             @return The string of the command
         """
-        if(not encode):
+        if(not encoded):
             return self.__cmd
         
         assert 1 == 0, "encoding not implemented yet"

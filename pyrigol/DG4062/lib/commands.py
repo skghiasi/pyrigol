@@ -1,12 +1,12 @@
-from SCPI_util import RigolCmdObj as cmdObj
-import definitions
-
+from .SCPI_util import RigolCmdObj as cmdObj
+from . import definitions
+import inspect
 class DG4062_Commander:
 
     def __init__(self): 
         pass 
 
-    def set_counter_attenuation(self , atn:definitions.ATTENUATION): 
+    def set_counter_attenuation(self , atn:definitions.ATTENUATIONS): 
         result = ":COUNter:ATTenuation {}".format(atn.get_string())
         return cmdObj(result) 
 
@@ -25,7 +25,7 @@ class DG4062_Commander:
         return cmdObj(result)
 
     
-    def set_counter_coupling(self , cpl:definitions.COUPLING): 
+    def set_counter_coupling(self , cpl:definitions.COUPLINGS): 
         """ 
             Sets the coupling of the counter
         """
@@ -38,7 +38,7 @@ class DG4062_Commander:
         return cmdObj(result)
 
     
-    def set_counter_gatetime(self , time:definitions.GATETIME): 
+    def set_counter_gatetime(self , time:definitions.GATETIMES): 
         result = ":counter:gatetime {}".format(time.get_string())
         return cmdObj(result)
 
@@ -50,8 +50,8 @@ class DG4062_Commander:
         result = ":counter:hf?"
         return cmdObj(result)
 
-    def set_counter_impedance(self , counter_imp:definitions.COUNTER_IMPEDANCE):
-        if(not isinstance(counter_imp , definitions.COUNTER_IMPEDANCE)): 
+    def set_counter_impedance(self , counter_imp:definitions.COUNTER_IMPEDANCES):
+        if(not isinstance(counter_imp , definitions.COUNTER_IMPEDANCES)): 
             raise Exception("invalid argument: counter_impedance")
 
         result = ":counter:impedance {}".format(counter_imp.get_string())
@@ -189,12 +189,17 @@ class DG4062_Commander:
     
     ############ OUPTUT COMMANDS ##############
     def set_output_impedance(self , ch:definitions.CHANNELS , output_imp): 
-        
+        print("1{}".format(type(output_imp) == type(definitions.OUTPUT_IMPEDANCES.INFINITY)))
+        print(type(output_imp))
+        print(type(definitions.OUTPUT_IMPEDANCES.INFINITY))
+        print(inspect.getmodule(type(output_imp)))
+        print(inspect.getmodule(type(definitions.OUTPUT_IMPEDANCES.INFINITY)))
         if(isinstance(output_imp, int) or isinstance(output_imp , float)): 
             if(output_imp < 1 or output_imp > 10000): 
                 raise Exception("Arguent out of range: output_imp should be between 1 and 10000")
             imp_str = "{}".format(output_imp)
-        elif(isinstance(output_imp , definitions.OUTPUT_IMPEDANCE)): 
+        
+        elif(isinstance(output_imp , definitions.OUTPUT_IMPEDANCES)): 
             imp_str = "{}".format(output_imp.get_string())
         else: 
             raise Exception("Invalid argument: output impedance should be int, float or OUTPUT_IMPEDANCE")
@@ -710,7 +715,7 @@ class DG4062_Commander:
         
                 
 
-    def set_dac_interpolation_mode(self , mode:definitions.DAC_INTERP_MODE): 
+    def set_dac_interpolation_mode(self , mode:definitions.DAC_INTERP_MODES): 
         result = ":data:points:interpolate {}".format(mode.get_string())
         return cmdObj(result)
 

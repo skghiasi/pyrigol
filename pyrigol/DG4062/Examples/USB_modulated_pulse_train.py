@@ -1,9 +1,13 @@
+from pathlib import PurePath
+import pathlib
+import sys
 import time
 import pyvisa
-from ..lib import definitions as rigol_defs
-from ..lib import commands as scpi
-from ..lib import SCPI_util
 
+
+import lib.definitions as rigol_defs
+import lib.commands as scpi 
+import lib.SCPI_util
 
 if __name__ == "__main__":
     ## connecting to the visa backend
