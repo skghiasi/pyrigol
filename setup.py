@@ -1,4 +1,4 @@
-from setuptools import setup
+from setuptools import setup , find_packages
 
 setup(
    name='pyrigol',
@@ -7,6 +7,6 @@ setup(
    author='kghiasi',
    author_email='skyghiassi@gmail.com',
    url = 'git@gitlab.ewi.tudelft.nl/kghiasi/pyrigol.git',
-   packages=['pyrigol'],  # would be the same as name
+   packages=find_packages(), 
    install_requires=['pyvisa'], #external packages acting as dependencies
 )
