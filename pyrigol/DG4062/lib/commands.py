@@ -2,7 +2,6 @@ from .SCPI_util import RigolCmdObj as cmdObj
 from . import definitions
 import inspect
 class DG4062_Commander:
-
     def __init__(self): 
         pass 
 
